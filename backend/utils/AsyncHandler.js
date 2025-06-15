@@ -3,3 +3,5 @@ function AsyncHandler(controllerFunction) {
         Promise.resolve(controllerFunction(req, res, next)).catch(error => next(error))
     }
 }
+
+module.exports = AsyncHandler
