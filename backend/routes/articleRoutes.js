@@ -9,7 +9,7 @@ const {getAllArticles,
        toggleBookmark, 
        deleteArticle, 
        generateSummary} = require('../controllers/articleController.js');
-const {checkArticleOwnership, protect, isAuthor} = require('../middleware/authMiddleware.js');
+const {checkArticleOwnership, protect} = require('../middleware/authMiddleware.js');
 const { uploadArtilceImage } = require('../middleware/uploadMiddleware.js');
 
 
@@ -23,9 +23,9 @@ router.get('/:slug/comments', getArticleComments);
 
 router.use(protect);
 
-router.post('/', isAuthor, uploadArtilceImage.single('thumbnail'), createArticle);
-router.patch('/:slug', isAuthor, checkArticleOwnership, uploadArtilceImage.single('thumbnail'), updateArticle);
-router.delete('/:slug', isAuthor, checkArticleOwnership, deleteArticle);
+router.post('/', uploadArtilceImage.single('thumbnail'), createArticle);
+router.patch('/:slug', checkArticleOwnership, uploadArtilceImage.single('thumbnail'), updateArticle);
+router.delete('/:slug', checkArticleOwnership, deleteArticle);
 
 router.post('/:slug/like', toggleLike);
 router.post('/:slug/bookmark', toggleBookmark);

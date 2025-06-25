@@ -66,12 +66,9 @@ exports.forgotPassword = async(req, res) => {
       });
     }
 
-    
     const token = crypto.randomBytes(32).toString('hex');
-    await ResetToken.create({
-      userId : user._id,
-      token
-    });
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    await ResetToken.create({ userId: user._id, token: hashedToken });
     
     const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${token}&id=${user._id}`;
     

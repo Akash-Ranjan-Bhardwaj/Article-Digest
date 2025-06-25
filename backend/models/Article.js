@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
 
-    articleId : {
-        type: String,
-        required: true,
-    },
+   
     title : {
         type: String, 
         required: true,
@@ -18,9 +15,8 @@ const articleSchema = new mongoose.Schema({
         minlength: [100, 'Content should be at least 100 characters']
 
     },
-    thumbmail : {
+    thumbnail : {
         type: String,  
-        required: true,
         default: "default-thumbnail.jpg"
     },
     userId :{
@@ -28,33 +24,13 @@ const articleSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    isPublished : {
+    archived: {
         type : Boolean,
-        default: true
+        default: false
     },
     summary: {
         type: String,
 
-    },
-    likesCount: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    dislikesCount: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    commetsCount: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    readCount: {
-        type: Number,
-        required: true,
-        min: 0
     },
     slug: {
     type: String,
@@ -87,6 +63,21 @@ articleSchema.virtual('likesCount', {
   localField: '_id',
   foreignField: 'articleId',
   match: { type: 'like' },  
+  count: true
+});
+
+articleSchema.virtual('dislikesCount', {
+  ref: 'Reaction',
+  localField: '_id',
+  foreignField: 'articleId',
+  match: { type: 'dislike' },
+  count: true
+});
+
+articleSchema.virtual('viewsCount', {
+  ref: 'View',
+  localField: '_id',
+  foreignField: 'articleId',
   count: true
 });
 

@@ -6,9 +6,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role:{type:String, enum:["user", "author"], default: "user"},
   bookmarks:[{
-    type: mongoose.Schmema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Article"
   }]
 });
 
 module.exports = mongoose.model('User', userSchema);
+ 
