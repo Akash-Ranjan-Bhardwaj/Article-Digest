@@ -19,7 +19,6 @@ const router = express.Router();
 router.get('/', getAllArticles);
 router.get('/search', searchArticles);
 router.get('/:slug', getArticleBySlug);
-router.get('/:slug/comments', getArticleComments);
 
 router.use(protect);
 
@@ -27,7 +26,7 @@ router.post('/', uploadArtilceImage.single('thumbnail'), createArticle);
 router.patch('/:slug', checkArticleOwnership, uploadArtilceImage.single('thumbnail'), updateArticle);
 router.delete('/:slug', checkArticleOwnership, deleteArticle);
 
-router.post('/:slug/like', toggleLike);
+router.post('/:slug/like', toggleReaction);
 router.post('/:slug/bookmark', toggleBookmark);
 router.post('/:slug/generate-summary', generateSummary);
 
