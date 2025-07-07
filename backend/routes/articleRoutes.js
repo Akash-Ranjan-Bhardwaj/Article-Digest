@@ -1,11 +1,10 @@
 const express = require ('express');
 const {getAllArticles, 
        searchArticles,
-       getArticleBySlug, 
-       getArticleComments, 
+       getArticleBySlug,
        createArticle, 
        updateArticle, 
-       toggleLike, 
+       toggleReaction, 
        toggleBookmark, 
        deleteArticle, 
        generateSummary} = require('../controllers/articleController.js');
